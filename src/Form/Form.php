@@ -22,6 +22,16 @@ class Form {
 		return $inst;
 	}
 
+	public static function model($modelInst) {
+		$inst = new static;
+		$inst->values = \Reqest::old();
+		if (empty($inst->values)) {
+			$inst->values = $modelInst->toArray();
+		}
+		$inst->rowAttrs = $modelInst->fields;
+		return $inst;
+	}
+
 	public function init($values, $rows, $arguments = []) {
 		$this->values = $values;
 		$this->rowsAttrs = $rows;
