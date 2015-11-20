@@ -30,7 +30,7 @@ class Form {
 	}
 
 	public function setRows() {
-		foreach ($this->fieldsAttrs as $key => $row) {
+		foreach ($this->rowsAttrs as $key => $row) {
 			$this->setRow($row['name'], $row);
 		}
 	}
