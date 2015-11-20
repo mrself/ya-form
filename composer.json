@@ -1,7 +1,7 @@
 {
     "name": "mrself/ya-form",
     "description": "Generate html form in laravel easy",
-    "type": "html-helper",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
