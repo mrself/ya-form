@@ -4,10 +4,11 @@ namespace Mrself\YaF\Form;
 
 class Form {
 
-	protected $fields = [];
+	protected $rows = [];
 	protected $name;
 	public $dName;
 	protected $viewData = [];
+	protected $groups = [];
 
 	public function __construct() {
 		$this->view = \App::make('Mrself\YaF\Form\View');
@@ -25,18 +26,30 @@ class Form {
 		$this->values = $values;
 		$this->fieldsAttrs = $fields;
 		$this->arguments = $arguments;
-		$this->initFields();
+		$this->setFields();
 	}
 
-	public function initFields() {
+	public function setFields() {
 		foreach ($this->fieldsAttrs as $key => $field) {
-			$row = new Row();
-			$row->setFormName($this->getName());
-			$row->setAttrs($field);
-			$row->setValue($this->getValue($field['name']));
-			$row->setArgs($this->getArgs($field['name']));
-			$this->fields[$field['name']] = $row;
+			$this->setRow($field['name'], $field);
 		}
+	}
+
+	public function setGroups($groups) {
+		$this->groups = $groups;
+	}
+
+	protected function makeRow($attrs) {
+		$row = new Row();
+		$row->setFormName($this->getName());
+		$row->setAttrs($attrs);
+		$row->setValue($this->getValue($attrs['name']));
+		$row->setArgs($this->getArgs($attrs['name']));
+		return $row;
+	}
+
+	protected function setRow($name, $attrs) {
+		$this->rows[$name] = $this->makeRow($attrs);
 	}
 
 	protected function getValue($fieldName) {
@@ -78,15 +91,23 @@ class Form {
 
 	public function render() {
 		$html = '';
-		foreach ($this->fields as $name => $field) {
-			$html .= $field->render($this->view);
+		foreach ($this->rows as $name => $row) {
+			$html .= $row->render($this->view);
+		}
+		return $html;
+	}
+
+	public function renderGroup($name) {
+		$html = '';
+		foreach ($this->groups[$name] as $rowName) {
+			$html .= $this->rows[$rowName]->render($this->view);
 		}
 		return $html;
 	}
 
 	public function __get($name) {
-		if (isset($this->fields[$name]))
-			return $this->fields[$name];
+		if (isset($this->rows[$name]))
+			return $this->rows[$name];
 		else {
 			return null;
 		}
