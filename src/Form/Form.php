@@ -14,24 +14,24 @@ class Form {
 		$this->view = \App::make('Mrself\YaF\Form\View');
 	}
 
-	public static function make ($values, $fields, $arguments = []) {
+	public static function make ($values, $rows, $arguments = []) {
 		$inst = new static;
 		$inst->values = $values;
-		$inst->fieldsAttrs = $fields;
+		$inst->rowsAttrs = $rows;
 		$inst->arguments = $arguments;
 		return $inst;
 	}
 
-	public function init($values, $fields, $arguments = []) {
+	public function init($values, $rows, $arguments = []) {
 		$this->values = $values;
-		$this->fieldsAttrs = $fields;
+		$this->rowsAttrs = $rows;
 		$this->arguments = $arguments;
-		$this->setFields();
+		$this->setRows();
 	}
 
-	public function setFields() {
-		foreach ($this->fieldsAttrs as $key => $field) {
-			$this->setRow($field['name'], $field);
+	public function setRows() {
+		foreach ($this->fieldsAttrs as $key => $row) {
+			$this->setRow($row['name'], $row);
 		}
 	}
 
@@ -52,16 +52,16 @@ class Form {
 		$this->rows[$name] = $this->makeRow($attrs);
 	}
 
-	protected function getValue($fieldName) {
-		if (!empty($this->values[$fieldName])) {
-			return $this->values[$fieldName];
+	protected function getValue($rowName) {
+		if (!empty($this->values[$rowName])) {
+			return $this->values[$rowName];
 		}
 		return '';
 	}
 
-	protected function getArgs($fieldName) {
-		if (!empty($this->arguments[$fieldName])) {
-			return $this->arguments[$fieldName];
+	protected function getArgs($rowName) {
+		if (!empty($this->arguments[$rowName])) {
+			return $this->arguments[$rowName];
 		}
 		return [];
 	}
