@@ -1,0 +1,1 @@
+<input class="{{ $dName }}__{{ $row->name }} form-control my-class" id="{{ $row->id }}" type="text" name="{{ $row->name }}" value="{{ $row->value }}" />

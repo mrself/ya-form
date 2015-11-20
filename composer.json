@@ -1,0 +1,14 @@
+{
+    "name": "mrself/ya-form",
+    "description": "Generate html form in laravel easy",
+    "type": "html-helper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yaroslav Vavrysh",
+            "email": "yaruk.my@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
