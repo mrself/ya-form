@@ -34,7 +34,7 @@ class Row {
 
 
 	public function setAttrs($attrs) {
-		foreach (array_only($attrs, ['label', 'type', 'name', 'rowView']) as $key => $val) {
+		foreach (array_only($attrs, ['label', 'type', 'name', 'rowView', 'dName']) as $key => $val) {
 			$this->{$key} = $val;
 		}
 		if (!isset($attrs['label'])) {
