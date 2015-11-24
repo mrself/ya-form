@@ -109,6 +109,7 @@ class Form {
 
 	public function renderGroup($name) {
 		$html = '';
+		// dd($this->groups);
 		foreach ($this->groups[$name] as $rowName) {
 			$html .= $this->rows[$rowName]->render($this->view);
 		}
