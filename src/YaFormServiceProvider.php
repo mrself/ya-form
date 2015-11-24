@@ -13,7 +13,7 @@ class YaFormServiceProvider extends ServiceProvider {
 	{
 		$this->loadViewsFrom(__DIR__.'/views', 'ya-form');
 		$this->publishes([
-		    __DIR__.'/views' => base_path('resources/views/mrself/ya-form'),
+		    __DIR__.'/views' => base_path('resources/views/vendor/ya-form'),
 		]);
 	}
 
