@@ -33,7 +33,12 @@ class Form {
 	}
 
 	public function init($values, $rows, $arguments = []) {
-		$this->values = $values;
+		$oldInput = \Request::old();
+		if (!count($oldInput)) {
+			$this->values = $values;
+		} else {
+			$this->values = $oldInput;
+		}
 		$this->rowsAttrs = $rows;
 		$this->arguments = $arguments;
 		$this->setRows();
