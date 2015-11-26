@@ -1,0 +1,1 @@
+<textarea class="form-control" id="{{ $row->id }}" name="{{ $row->name }}">{{ $row->value }}</textarea>

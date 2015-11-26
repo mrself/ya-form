@@ -1,0 +1,1 @@
+<input class="" id="{{ $row->id }}" type="checkbox" name="{{ $row->name }}" value="1" @if ($row->value) checked @endif />
