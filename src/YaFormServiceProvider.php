@@ -24,7 +24,7 @@ class YaFormServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->bind('YaF', 'Mrself\YaF\Form\Form');
+		$this->app->bind('Mrself\YaF\Form\Form', 'Mrself\YaF\Form\Form');
 	}
 
 }

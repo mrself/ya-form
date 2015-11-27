@@ -104,17 +104,17 @@ class Form {
 		}
 	}
 
-	public function render() {
+	public function render($except = []) {
 		$html = '';
 		foreach ($this->rows as $name => $row) {
-			$html .= $row->render($this->view);
+			if (!in_array($name, $except))
+				$html .= $row->render($this->view);
 		}
 		return $html;
 	}
 
 	public function renderGroup($name) {
 		$html = '';
-		// dd($this->groups);
 		foreach ($this->groups[$name] as $rowName) {
 			$html .= $this->rows[$rowName]->render($this->view);
 		}
