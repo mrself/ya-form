@@ -14,13 +14,6 @@ class Form {
 		$this->view = \App::make('Mrself\YaF\Form\View');
 	}
 
-	public static function make ($values, $rows, $arguments = []) {
-		$inst = new static;
-		$inst->values = $values;
-		$inst->rowsAttrs = $rows;
-		$inst->arguments = $arguments;
-		return $inst;
-	}
 
 	public static function model($modelInst) {
 		$inst = new static;
