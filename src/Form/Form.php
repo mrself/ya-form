@@ -11,6 +11,7 @@ class Form {
 	protected $groups = [];
 
 	public function __construct() {
+		dd(config('ya-form'));
 		$this->view = \App::make('Mrself\YaF\Form\View');
 	}
 

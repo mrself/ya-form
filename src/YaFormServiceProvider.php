@@ -15,6 +15,9 @@ class YaFormServiceProvider extends ServiceProvider {
 		$this->publishes([
 		    __DIR__.'/views' => base_path('resources/views/vendor/ya-form'),
 		]);
+		$this->publishes([
+		    __DIR__.'/config/ya-form.php' => config_path('ya-form.php'),
+		]);
 	}
 
 	/**
@@ -24,6 +27,9 @@ class YaFormServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->mergeConfigFrom(
+		    __DIR__.'/config/ya-form.php', 'ya-form'
+		);
 		$this->app->bind('Mrself\YaF\Form\Form', 'Mrself\YaF\Form\Form');
 	}
 
