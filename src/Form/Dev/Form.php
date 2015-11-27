@@ -2,7 +2,7 @@
 
 namespace Mrself\YaF\Form\Dev;
 
-class Form {
+class Form extends \Mrself\YaF\Form\Form {
 
 
 	public static function model($modelInst) {

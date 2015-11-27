@@ -9,7 +9,7 @@ class Row {
 	public $seedData;
 	protected $rowView;
 
-	protected $defaultType = 'text';
+	protected $defaultType;
 
 
 	public static function make($attrs, $value, $formName) {
@@ -17,6 +17,7 @@ class Row {
 		$inst->value = $value;
 		$inst->setFormName($formName);
 		$inst->setAttrs($attrs);
+		$inst->setDefaultType(config('ya-form.defaultFieldType'));
 		return $inst;
 	}
 

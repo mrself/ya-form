@@ -30,7 +30,11 @@ class YaFormServiceProvider extends ServiceProvider {
 		$this->mergeConfigFrom(
 		    __DIR__.'/config/ya-form.php', 'ya-form'
 		);
-		$this->app->bind('Mrself\YaF\Form\Form', 'Mrself\YaF\Form\Form');
+		if ($this->app->environment('production')) {
+			$this->app->bind('Mrself\YaF\Form\Form', 'Mrself\YaF\Form\Form');
+		} else {
+			$this->app->bind('Mrself\YaF\Form\Form', 'Mrself\YaF\Form\Dev\Form');
+		}
 	}
 
 }

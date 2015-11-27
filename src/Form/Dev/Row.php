@@ -2,7 +2,7 @@
 
 namespace Mrself\YaF\Form\Dev;
 
-class Row {
+class Row extends \Mrself\YaF\Form\Row {
 
 	public static function make($attrs, $value, $formName) {
 		$inst = new static;
@@ -48,6 +48,9 @@ class Row {
 	public function render($view) {
 		$view->setPath($this->makeRowPath($this->rowView));
 		$this->viewFieldPath = $this->makeViewPath('fields', $this->type);
+		if (!\View::exists($this->viewFieldPath)) {
+			throw new \Mrself\YaF\Exceptions\FormException(['name' => $this->name, 'type' => $this->type], 1);
+		}
 		$view->with('row', $this);
 		return $view->render();
 	}
