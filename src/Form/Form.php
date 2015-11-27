@@ -124,9 +124,10 @@ class Form {
 	public function __get($name) {
 		if (isset($this->rows[$name]))
 			return $this->rows[$name];
-		else {
-			return null;
+		elseif (isset($this->$name)) {
+			return $this->$name;
 		}
+		return null;
 	}
 
 	
