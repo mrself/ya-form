@@ -59,7 +59,11 @@ class Row extends \Mrself\YaF\Form\Row {
 		if (!$view) {
 			$view = 'default';
 		}
-		return $this->makeViewPath('rows', $view);
+		$path = $this->makeViewPath('rows', $view);
+		if (!\View::exists($path)) {
+			throw new \Mrself\YaF\Exceptions\FormException(['name' => $view], 2);
+		}
+		return $path;
 	}
 
 	private function makeViewPath($section, $file) {

@@ -14,6 +14,11 @@ class FormException extends \Exception {
 				$message = $this->notFoundViewForType($args);
 				break;
 
+			case 2:
+				$message = $this->notFoundViewForRow($args);
+				break;
+
+
 			default:
 				$message = 'Unknown error';
 				break;
@@ -24,6 +29,12 @@ class FormException extends \Exception {
 	public function notFoundViewForType($args) {
 		return sprintf('There is no template for the %s field with type %s', $args['name'], $args['type']);
 	}
+
+	public function notFoundViewForRow($args) {
+		return sprintf('There is no template for the row: %s', $args['name']);
+	}
+
+
 
 	public function wrapMessage($message) {
 		return 'Ya-form error: ' . $message;
