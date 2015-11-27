@@ -1,4 +1,6 @@
-# Why do you need this package?
+# Package for Laravel 5.0.0 for easy making html forms
+
+## Why do you need this package?
 
 How do you create forms? Say you have articles resource and want to implements creating / editing articles. What do you do first? I can suppose that you have to create the full markup for form in `create` view and also the same form markup for `edit` view. And event if you have 5 fields it takes a lot of time to create this stuff. But I see a simplier way to do it. You define what fields do you need in array format, init package. And in when you need to show your fields you  write: `$form->render();`. That's all. You have all the fields that you need.
 
