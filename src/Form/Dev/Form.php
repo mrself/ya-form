@@ -1,0 +1,117 @@
+<?php
+
+namespace Mrself\YaF\Form\Dev;
+
+class Form {
+
+
+	public static function model($modelInst) {
+		$inst = new static;
+		$inst->values = \Reqest::old();
+		if (empty($inst->values)) {
+			$inst->values = $modelInst->toArray();
+		}
+		$inst->rowAttrs = $modelInst->fields;
+		return $inst;
+	}
+
+	public function init($values, $rows, $arguments = []) {
+		$oldInput = \Request::old();
+		if (!count($oldInput)) {
+			$this->values = $values;
+		} else {
+			$this->values = $oldInput;
+		}
+		$this->rowsAttrs = $rows;
+		$this->arguments = $arguments;
+		$this->setRows();
+	}
+
+	public function setRows() {
+		foreach ($this->rowsAttrs as $key => $row) {
+			$this->setRow($row['name'], $row);
+		}
+	}
+
+	public function setGroups($groups) {
+		$this->groups = $groups;
+	}
+
+	protected function makeRow($attrs) {
+		$row = new Row();
+		$row->setFormName($this->getName());
+		$row->setAttrs($attrs);
+		$row->setValue($this->getValue($attrs['name']));
+		$row->setArgs($this->getArgs($attrs['name']));
+		return $row;
+	}
+
+	protected function setRow($name, $attrs) {
+		$this->rows[$name] = $this->makeRow($attrs);
+	}
+
+	protected function getValue($rowName) {
+		if (!empty($this->values[$rowName])) {
+			return $this->values[$rowName];
+		}
+		return '';
+	}
+
+	protected function getArgs($rowName) {
+		if (!empty($this->arguments[$rowName])) {
+			return $this->arguments[$rowName];
+		}
+		return [];
+	}
+
+
+	public function setName($name = null) {
+		if (!$name) {
+			$name = substr(uniqid(), 6);
+		}
+		$this->view->with('formName', $name);
+		$this->name = $name;
+	}
+
+	public function setDName($dName) {
+		$this->view->with('dName', $dName);
+		$this->dName = $dName;
+	}
+
+	public function getName() {
+		if (isset($this->name)) {
+			return $this->name;
+		} else {
+			$this->setName();
+			return $this->name;
+		}
+	}
+
+	public function render($except = []) {
+		$html = '';
+		foreach ($this->rows as $name => $row) {
+			if (!in_array($name, $except))
+				$html .= $row->render($this->view);
+		}
+		return $html;
+	}
+
+	public function renderGroup($name) {
+		$html = '';
+		foreach ($this->groups[$name] as $rowName) {
+			$html .= $this->rows[$rowName]->render($this->view);
+		}
+		return $html;
+	}
+
+	public function __get($name) {
+		if (isset($this->rows[$name]))
+			return $this->rows[$name];
+		elseif (isset($this->$name)) {
+			return $this->$name;
+		}
+		return null;
+	}
+
+	
+}
