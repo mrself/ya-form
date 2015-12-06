@@ -1,23 +1,14 @@
 <?php
 
-namespace Mrself\YaF\Form;
+namespace Mrself\YaF\Form\Dev;
 
-class Row {
-
-	public $name;
-	public $attrs;
-	public $seedData;
-	protected $rowView;
-
-	protected $defaultType;
-
+class Row extends \Mrself\YaF\Form\Row {
 
 	public static function make($attrs, $value, $formName) {
 		$inst = new static;
 		$inst->value = $value;
 		$inst->setFormName($formName);
 		$inst->setAttrs($attrs);
-		$inst->setDefaultType(config('ya-form.defaultFieldType'));
 		return $inst;
 	}
 
@@ -57,6 +48,9 @@ class Row {
 	public function render($view) {
 		$view->setPath($this->makeRowPath($this->rowView));
 		$this->viewFieldPath = $this->makeViewPath('fields', $this->type);
+		if (!\View::exists($this->viewFieldPath)) {
+			throw new \Mrself\YaF\Exceptions\FormException(['name' => $this->name, 'type' => $this->type], 1);
+		}
 		$view->with('row', $this);
 		return $view->render();
 	}
@@ -65,7 +59,11 @@ class Row {
 		if (!$view) {
 			$view = 'default';
 		}
-		return $this->makeViewPath('rows', $view);
+		$path = $this->makeViewPath('rows', $view);
+		if (!\View::exists($path)) {
+			throw new \Mrself\YaF\Exceptions\FormException(['name' => $view], 2);
+		}
+		return $path;
 	}
 
 	private function makeViewPath($section, $file) {

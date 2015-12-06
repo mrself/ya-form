@@ -1,23 +1,13 @@
 <?php
 
-namespace Mrself\YaF\Form;
+namespace Mrself\YaF\Form\Dev;
 
-class Form {
-
-	protected $rows = [];
-	protected $name;
-	public $dName;
-	protected $viewData = [];
-	protected $groups = [];
-
-	public function __construct() {
-		$this->view = \App::make('Mrself\YaF\Form\View');
-	}
+class Form extends \Mrself\YaF\Form\Form {
 
 
 	public static function model($modelInst) {
 		$inst = new static;
-		$inst->values = \Request::old();
+		$inst->values = \Reqest::old();
 		if (empty($inst->values)) {
 			$inst->values = $modelInst->toArray();
 		}

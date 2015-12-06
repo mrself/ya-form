@@ -1,0 +1,1 @@
+<input class="form-control" id="{{ $row->id }}" type="password" name="{{ $row->name }}" value="{{ $row->value }}" />
