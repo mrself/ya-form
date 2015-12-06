@@ -17,7 +17,7 @@ class Form {
 
 	public static function model($modelInst) {
 		$inst = new static;
-		$inst->values = \Reqest::old();
+		$inst->values = \Request::old();
 		if (empty($inst->values)) {
 			$inst->values = $modelInst->toArray();
 		}
